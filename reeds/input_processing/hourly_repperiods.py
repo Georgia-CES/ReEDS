@@ -272,7 +272,7 @@ def main(
         os.path.join(inputs_case,'hierarchy_original.csv'))
     
     if sw.GSw_HourlyClusterRegionLevel == 'r':
-        rmap = pd.Series(hierarchy_orig.index, index=hierarchy_orig.index)
+        rmap = pd.Series(hierarchy.index, index=hierarchy.index)
     elif agglevel_variables['agglevel'] == 'county' or 'county' in agglevel_variables['agglevel']:
         rmap = hierarchy[sw['GSw_HourlyClusterRegionLevel']]
     elif agglevel_variables['agglevel'] in ['ba','aggreg']:
