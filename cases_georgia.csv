@@ -1,17 +1,18 @@
-,Default Value,bas,states,SERCSE_test,SERCSE_hourly,SERTP,SERTP_highLoad,SERTP_highPVBat,SERTP_highLoad_highPVBat,SERTP_hgc,SERTP_highLoad_hgc,SERTP_highPVBat_hgc,SERTP_highLoad_highPVBat_hgc,transregs,EI_RUN
-ignore,1,,,,,0,0,0,0,,,,,,
-endyear,2044,,,,,,,,,,,,,,
-GSw_Region,,r/p88.p89.p90.p94,st/GA.AL.MS,nercr/SERC_SE,nercr/SERC_SE,transreg/SERTP,transreg/SERTP,transreg/SERTP,transreg/SERTP,transreg/SERTP,transreg/SERTP,transreg/SERTP,transreg/SERTP,transreg/MISO.SERTP.FRCC.PJM,interconnect/eastern
-GSw_HourlyChunkLengthRep,,,,,1,,,,,,,,,,
-GSw_LoadProfiles,,,,,,,EER2025_100by2050,,EER2025_100by2050,,EER2025_100by2050,,EER2025_100by2050,,
-GSw_GasCurve,2,,,,,,,,,,,,,,
-plantchar_gas,gas_ATB_2024_moderate,,,,,,,,,gas_ATB_2024_highgascost,gas_ATB_2024_highgascost,gas_ATB_2024_highgascost,gas_ATB_2024_highgascost,,
-plantchar_gas_ccs,gas-ccs_ATB_2024_moderate,,,,,,,,,gas-ccs_ATB_2024_highgascost,gas-ccs_ATB_2024_highgascost,gas-ccs_ATB_2024_highgascost,gas-ccs_ATB_2024_highgascost,,
-plantchar_onswind,ons-wind_ATB_2024_conservative,,,,,,,,,,,,,,
-GSw_SitingWindOns,limited,,,,,,,,,,,,,,
-plantchar_upv,upv_ATB_2024_moderate,,,,,,,upv_ATB_2024_advanced,upv_ATB_2024_advanced,,,upv_ATB_2024_advanced,upv_ATB_2024_advanced,,
-plantchar_battery,battery_ATB_2024_moderate,,,,,,,battery_ATB_2024_advanced,battery_ATB_2024_advanced,,,battery_ATB_2024_advanced,battery_ATB_2024_advanced,,
-yearset,2010..2050..2,,,,,,,,,,,,,,
-GSw_HourlyType,,,,,year,,,,,,,,,,
-GSw_HourlyClusterAlgorithm,optimized,,,,,,,,,,,,,,
-GSw_HourlyClusterRegionLevel,transgrp,r,r,r,,r,r,r,r,r,r,r,r,,
+,Default Value,bas,states,SERCSE_test,SERCSE_hourly,SERTP,SERTP_highLoad,SERTP_highPVBat,SERTP_highLoad_highPVBat,SERTP_hgc,SERTP_highLoad_hgc,SERTP_highPVBat_hgc,SERTP_highLoad_highPVBat_hgc,transregs,EI_RUN,SERTP_gasforce
+ignore,1,,,,,,,,,,,,,,,0
+endyear,2044,,,,,,,,,,,,,,,
+GSw_Region,,r/p88.p89.p90.p94,st/GA.AL.MS,nercr/SERC_SE,nercr/SERC_SE,transreg/SERTP,transreg/SERTP,transreg/SERTP,transreg/SERTP,transreg/SERTP,transreg/SERTP,transreg/SERTP,transreg/SERTP,transreg/MISO.SERTP.FRCC.PJM,interconnect/eastern,transreg/SERTP
+GSw_HourlyChunkLengthRep,,,,,1,,,,,,,,,,,
+GSw_LoadProfiles,,,,,,,EER2025_100by2050,,EER2025_100by2050,,EER2025_100by2050,,EER2025_100by2050,,,
+GSw_GasCurve,2,,,,,,,,,,,,,,,
+plantchar_gas,gas_ATB_2024_moderate,,,,,,,,,gas_ATB_2024_highgascost,gas_ATB_2024_highgascost,gas_ATB_2024_highgascost,gas_ATB_2024_highgascost,,,
+plantchar_gas_ccs,gas-ccs_ATB_2024_moderate,,,,,,,,,gas-ccs_ATB_2024_highgascost,gas-ccs_ATB_2024_highgascost,gas-ccs_ATB_2024_highgascost,gas-ccs_ATB_2024_highgascost,,,
+plantchar_onswind,ons-wind_ATB_2024_conservative,,,,,,,,,,,,,,,
+GSw_SitingWindOns,limited,,,,,,,,,,,,,,,
+plantchar_upv,upv_ATB_2024_moderate,,,,,,,upv_ATB_2024_advanced,upv_ATB_2024_advanced,,,upv_ATB_2024_advanced,upv_ATB_2024_advanced,,,
+plantchar_battery,battery_ATB_2024_moderate,,,,,,,battery_ATB_2024_advanced,battery_ATB_2024_advanced,,,battery_ATB_2024_advanced,battery_ATB_2024_advanced,,,
+yearset,2010..2050..2,,,,,,,,,,,,,,,
+GSw_HourlyType,,,,,year,,,,,,,,,,,
+GSw_HourlyClusterAlgorithm,optimized,,,,,,,,,,,,,,,
+GSw_HourlyClusterRegionLevel,transgrp,r,r,r,,r,r,r,r,r,r,r,r,,,r
+GSw_NewCapForceScen,,,,,,,,,,,,,,,,gasonly

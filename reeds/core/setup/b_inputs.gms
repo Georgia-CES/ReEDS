@@ -1492,6 +1492,20 @@ $offempty
 parameter r_offshore(r,t) "regions where offshore wind is required by a mandate" ;
 r_offshore(r,t)$[sum{st$r_st(r,st), offshore_cap_req(st,t) }] = 1 ;
 
+* Forced new capacity (e.g. utility-announced builds from an IRP or capacity certification).
+* Values are cumulative summer-rated MW of new investment by tech/state/year, so the data file
+* can be written annually and remains valid for any choice of modeled solve years.
+$onempty
+parameter newcapforce(i,st,allt) "--MW-- cumulative forced new capacity by tech and state"
+/
+$offlisting
+$ondelim
+$include inputs_case%ds%newcapforce.csv
+$offdelim
+$onlisting
+/ ;
+$offempty
+
 * initial smr capacity to ensure that exogenous H2 demand can be supplied, csv is written by writecapdat.py
 $onempty
 parameter h2_existing_smr_cap(r,t) "--MW-- capacity of existing SMR - used for meeting H2 demand before new H2 producing tech deployment is allowed to begin"

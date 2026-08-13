@@ -162,6 +162,7 @@ EQUATION
  eq_ener_up(i,v,r,rscbin,t)               "--MW-- limit on energy upsizing"
  eq_forceprescription_power(pcat,r,t)     "--MW-- total power investment in prescribed capacity must equal amount from exogenous prescriptions"
  eq_forceprescription_energy(pcat,r,t)    "--MWh-- total energy investment in prescribed capacity must equal amount from exogenous prescriptions"
+ eq_newcapforce(i,st,t)                   "--MW-- cumulative new investment by tech and state must be at least the forced level"
  eq_refurblim(i,r,t)                      "--MW-- total refurbishments cannot exceed the amount of capacity that has reached the end of its life"
 
 * renewable supply curves
@@ -2839,6 +2840,30 @@ eq_batterymandate(st,t)
 
 *must be greater than the required level
     batterymandate(st,t)
+;
+
+* ---------------------------------------------------------------------------
+
+* Force in capacity that is known to be planned but that the model would not otherwise build,
+* e.g. utility-announced units from an IRP or capacity certification filing. Unlike the
+* prescription mechanism above this is a floor rather than an equality, it is keyed by state
+* rather than BA, and it counts only investment made from Sw_NewCapForceStartYear onward so
+* that pre-existing prescribed or endogenous builds do not offset the forced amount.
+* The constraint switches itself off when newcapforce is empty, which is what happens when
+* GSw_NewCapForceScen is none, so no separate on/off switch is needed.
+eq_newcapforce(i,st,t)
+    $[tmodel(t)$stfeas(st)$newcapforce(i,st,t)
+    $sum{(v,r)$r_st(r,st), valcap(i,v,r,t) }
+    $(not Sw_PCM)]..
+*cumulative new investment in this state, counting only years at or after the start year
+    sum{(v,r,tt)$[r_st(r,st)$inv_cond(i,v,r,t,tt)$(tmodel(tt) or tfix(tt))
+                 $(yeart(tt)>=Sw_NewCapForceStartYear)],
+        INV(i,v,r,tt) }
+
+    =g=
+
+*must be greater than the forced level
+    newcapforce(i,st,t)
 ;
 
 * ---------------------------------------------------------------------------
