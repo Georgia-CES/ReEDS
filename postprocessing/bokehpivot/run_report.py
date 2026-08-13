@@ -21,7 +21,7 @@ import reeds_bokeh as rb
 
 #EDIT THE FOLLOWING FIELDS
 report_path = f'{bokehpivot_dir}/reports/templates/reeds2/georgia_report.py' #Path to report that is to be run
-diff = 'No' #Use 'Yes' if adding differences to a base case, specified below (default base case is first scenario in reeds_scenarios.csv)
+diff = 'Yes' #Use 'Yes' if adding differences to a base case, specified below (default base case is first scenario in reeds_scenarios.csv)
 
 data_source = f'{bokehpivot_dir}/reeds_scenarios.csv' #either a scenarios.csv file or ReEDS run directory (or directories separated by pipe symbols).
 base = pd.read_csv(data_source)['name'][0] #Name of base case for when diff='Yes'. Defaults to first case in reeds_scenarios.csv.
