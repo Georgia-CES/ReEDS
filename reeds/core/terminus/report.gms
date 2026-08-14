@@ -319,6 +319,14 @@ reqt_price('oper_res',ortype,r,h,t)$tmodel_new(t) =
 reqt_price('state_rps',RPSCat,r,'ann',t)$tmodel_new(t) =
     (1 / cost_scale) * (1 / pvf_onm(t)) * sum{st$r_st(r,st), eq_REC_Requirement.m(RPSCat,st,t) } ;
 
+*Forced new capacity price ($/MW-yr, subtype is the forced tech). This is the marginal system
+*cost of the eq_newcapforce floor: the portion of the forced units' cost that is not recovered
+*through the energy, capacity, or policy markets. It is >= 0 for a minimization with =g=, so it
+*enters the bulk system price stack as a positive adder offsetting the drop in res_marg that
+*forced capacity causes. Uses pvf_onm to annualize, matching res_marg_ann.
+reqt_price('force',i,r,'ann',t)$tmodel_new(t) =
+    (1 / cost_scale) * (1 / pvf_onm(t)) * sum{st$r_st(r,st), eq_newcapforce.m(i,st,t) } ;
+
 reqt_price('nat_gen','na',r,'ann',t)$tmodel_new(t) =
     (1 / cost_scale) * (1 / pvf_onm(t)) * eq_national_gen.m(t) ;
 
@@ -395,6 +403,15 @@ reqt_quant('state_rps',RPSCat,r,'ann',t)$tmodel_new(t) =
         )$(RecStyle(st,RPSCat)=2)
     )} ;
 
+*Forced new capacity quantity (MW): cumulative investment counted toward the eq_newcapforce
+*floor. Reported only where a forcing requirement exists. Where the constraint binds this equals
+*newcapforce and sums across the state's BAs to the state requirement; where it is slack the
+*marginal above is zero, so the price-times-quantity product is unaffected either way.
+reqt_quant('force',i,r,'ann',t)$[tmodel_new(t)$sum{st$r_st(r,st), newcapforce(i,st,t) }] =
+    sum{(v,tt)$[inv_cond(i,v,r,t,tt)$(tmodel(tt) or tfix(tt))
+               $(yeart(tt)>=Sw_NewCapForceStartYear)],
+        INV.l(i,v,r,tt) } ;
+
 reqt_quant('nat_gen','na',r,'ann',t)$tmodel_new(t) =
     national_gen_frac(t) * (
 * if Sw_GenMandate = 1, then apply the fraction to the bus bar load
@@ -418,6 +435,7 @@ reqt_quant('eq_loadcon','na',r,allh,t)$[tmodel_new(t)$h_t(allh,t)] = LOAD.l(r,al
 reqt_quant_sys('load','na',h,t)$tmodel_new(t) = sum{r, reqt_quant('load','na',r,h,t)} ;
 reqt_quant_sys('oper_res',ortype,h,t)$tmodel_new(t) = sum{r, reqt_quant('oper_res',ortype,r,h,t)} ;
 reqt_quant_sys('state_rps',RPSCat,'ann',t)$tmodel_new(t) = sum{r, reqt_quant('state_rps',RPSCat,r,'ann',t)} ;
+reqt_quant_sys('force',i,'ann',t)$tmodel_new(t) = sum{r, reqt_quant('force',i,r,'ann',t)} ;
 reqt_quant_sys('nat_gen','na','ann',t)$tmodel_new(t) = sum{r, reqt_quant('nat_gen','na',r,'ann',t)} ;
 reqt_quant_sys('annual_cap',e,'ann',t)$tmodel_new(t) = sum{r, reqt_quant('annual_cap',e,r,'ann',t)} ;
 reqt_quant_sys('res_marg','na',ccseason,t)$[Sw_PRM_CapCredit$tmodel_new(t)] =
@@ -438,6 +456,10 @@ reqt_price_sys('oper_res',ortype,h,t)$reqt_quant_sys('oper_res',ortype,h,t) =
 reqt_price_sys('state_rps',RPSCat,'ann',t)$reqt_quant_sys('state_rps',RPSCat,'ann',t) =
     sum{r, reqt_price('state_rps',RPSCat,r,'ann',t) * reqt_quant('state_rps',RPSCat,r,'ann',t)}/
     reqt_quant_sys('state_rps',RPSCat,'ann',t) ;
+
+reqt_price_sys('force',i,'ann',t)$reqt_quant_sys('force',i,'ann',t) =
+    sum{r, reqt_price('force',i,r,'ann',t) * reqt_quant('force',i,r,'ann',t)}/
+    reqt_quant_sys('force',i,'ann',t) ;
 
 reqt_price_sys('nat_gen','na','ann',t)$reqt_quant_sys('nat_gen','na','ann',t) =
     sum{r, reqt_price('nat_gen','na',r,'ann',t) * reqt_quant('nat_gen','na',r,'ann',t)}/
