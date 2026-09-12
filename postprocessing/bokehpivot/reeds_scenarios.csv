@@ -1,3 +1,3 @@
 name,color,path
-SERTP,#1f77b4,/home/ubuntu/ReEDS/runs/v20260710_022616_SERTP
-SERTP_gasforce,#ff7f0e,/home/ubuntu/ReEDS/runs/v20260813_172415_SERTP_gasforce
+GPC,#1f77b4,/home/ubuntu/ReEDS/runs/gpc_SERTP_gpc
+GPC_gasforce,#ff7f0e,/home/ubuntu/ReEDS/runs/gpc_SERTP_gpc_force
