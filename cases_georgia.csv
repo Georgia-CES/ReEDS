@@ -16,3 +16,5 @@ GSw_HourlyType,,,,,year,,,,,,,,,,,,,
 GSw_HourlyClusterAlgorithm,optimized,,,,,,,,,,,,,,,,,
 GSw_HourlyClusterRegionLevel,transgrp,r,r,r,,r,r,r,r,r,r,r,r,,,r,r,r
 GSw_NewCapForceScen,,,,,,,,,,,,,,,,gasonly,,gasonly
+GSw_PRM_StressSeedLoadLevel,,,,,,,,,,,,,,,,,st,st
+GSw_PRM_StressSeedMinRElevel,,,,,,,,,,,,,,,,,st,st
